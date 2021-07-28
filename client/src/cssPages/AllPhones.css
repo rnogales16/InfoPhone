@@ -1,0 +1,10 @@
+.everything {
+  margin: 0 10%;
+}
+
+.phonesFromAllPhones {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,17 @@
+.homephonesboxes{
+  width: 420px;
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+.homephones {
+  width: 200px
+}
+
+.homephones img {
+  width: 100px;
+}

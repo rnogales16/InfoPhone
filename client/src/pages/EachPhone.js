@@ -10,9 +10,7 @@ function EachPhone(props){
   function removePhone(phoneId) {
     axios.delete(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
-      const phoneToDelete = phoneId.filter(phone => phone.id !== phoneId)
-      setPhoneState(phoneToDelete)
-      console.log(phoneToDelete)
+      props.history.push('/phones')
     })
     .catch(err => console.log(err))
   }
@@ -21,6 +19,8 @@ function EachPhone(props){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
       const phone = res.data
+      phone.Model = phone.Model.replace('_', '')
+      console.log('this is modelName' , phone.Model)
       setPhoneState(phone)
     })
     .catch(err => console.log(err))
@@ -29,7 +29,7 @@ function EachPhone(props){
   return(
     <div>
       <div>
-        <img src={phoneState.Image || "../../defaultPhone.png"} alt="imagen movil" />
+        <img src={phoneState.Image || "/defaultPhone.png"} alt="imagen movil" />
         <h2><strong>Model:</strong> {phoneState.Model}</h2>
         <p><strong>Brand:</strong> {phoneState.Brand}</p>
         <p><strong>Announced date:</strong> {phoneState.Announced}</p>
@@ -66,9 +66,15 @@ function EachPhone(props){
         <p><strong>TwoG:</strong> {phoneState.TwoG}</p>
         <p><strong>Status:</strong> {phoneState.Status}</p>
         <p><strong>Colors:</strong> {phoneState.Colors}</p>
-        <Link to = {`/phones/${phoneState._id}/edit`}>Edit Phone</Link>
-        <br />
-        <button onClick= {removePhone}>Delete Phone</button>
+        {props.user &&
+        <>
+          <Link to = {`/phones/compare/:id/:id/`}>Compare two phones</Link>
+          <br />
+          <Link to = {`/phones/${phoneState._id}/edit`}>Edit Phone</Link>
+          <br />
+          <button onClick= {() => removePhone(phoneState._id)}>Delete Phone</button>
+        </>
+        }
         <br />
         <Link to = {`/phones`}>All phones</Link>
       </div>

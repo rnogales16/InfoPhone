@@ -15,6 +15,7 @@ import AllPhones from "./pages/AllPhones";
 import EachPhone from "./pages/EachPhone";
 import EditPhone from "./pages/EditPhone";
 import CreateNewPhone from './pages/NewPhone'
+import Comparison from './pages/Comparison'
 
 
 function App() {
@@ -81,7 +82,9 @@ function App() {
           user={user}
         />
 
-        <NormalRoute exact path="/phones/:id/" component={EachPhone}/>
+        <NormalRoute exact path="/phones/:id/" component={EachPhone} user={user} />
+
+				<NormalRoute exact path="/phones/compare/:id1/:id2/" component={Comparison}/>
 
 				<NormalRoute exact path="/phones/" component={AllPhones}/>
 

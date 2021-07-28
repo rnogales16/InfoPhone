@@ -6,8 +6,10 @@ const Navbar = (props) => {
 	return (
 		<nav>
 			<Link to={'/'} className='nav__projectName'>
-				Your app name
+				InfoPhone
 			</Link>
+			<Link to = {`/phones`} className='authLink'>All Phones</Link>
+
 
 			<div className='nav__authLinks'>
 				{props.user ? (
