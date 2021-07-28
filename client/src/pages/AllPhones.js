@@ -64,39 +64,84 @@ function AllPhones(props){
 
   return(
     <div className= 'everything'>
-      <label htmlFor="search">Search phone by name or brand</label>
-      <input type="text" onChange = {event => {setSearchState(event.target.value)}} />
-      <div>
-        <button onClick={() => sortByScreen()}>Sort by screen</button>
-        <button onClick={() => sortByYear()}>Sort by year</button>
-        <button onClick={() => sortByMemory()}>Sort by memory</button>
-        <div className='phonesFromAllPhones'>
-          {listState.filter((value) => {
-            if (searchState == '') {
-              return value
-            } else if (value.Model.toLowerCase().includes(searchState.toLowerCase())) {
-              return value
-            } else if (value.Brand.toLowerCase().includes(searchState.toLowerCase())) {
-              return value
-            } else if (value.Chipset && value.Chipset.toLowerCase().includes(searchState.toLowerCase())) {
-              return value
-            }
-          }).map(value => {
-            let modelName = value.Model
-            let newModelName = modelName.replace('_', '')
-            return(
-              <div key= {value._id} style= {{width: '200px'}}>
-                <Link to = {`/phones/${value._id}`}>
-                  <img src={value.Image || "/defaultPhone.png"} alt="imagen movil" />
-                  <h3>{newModelName}</h3>
-                </Link>
-                <h4>{value.Brand}</h4>
-                <p>{value.Chipset}</p>
-                <button onClick={ () => addToCompare(value._id) }>Compare</button>
-              </div>
-            )
-          })}
+      <div className= 'searchAndFilters'>
+        <div>
+          <label htmlFor="search">Search phone by name or brand</label>
+          <input type="text" onChange = {event => {setSearchState(event.target.value)}} />
         </div>
+        <div>
+          <button onClick={() => sortByScreen()} class="container card contentBx">Sort by screen</button>
+          <button onClick={() => sortByYear()}>Sort by year</button>
+          <button onClick={() => sortByMemory()}>Sort by memory</button>
+        </div>
+      </div>
+      <div className='phonesFromAllPhones'>
+        {listState.filter((value) => {
+          if (searchState == '') {
+            return value
+          } else if (value.Model.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          } else if (value.Brand.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          } else if (value.Chipset && value.Chipset.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          }
+        }).map(value => {
+          let modelName = value.Model
+          let newModelName = modelName.replace('_', '')
+          return(
+            <div key= {value._id}>
+              <Link to = {`/phones/${value._id}`} className=''>
+                <div>
+                  <img src={value.Image || "/defaultPhone.png"} alt="imagen movil" />
+                </div>
+                <div className= 'textOfEachPhoneInPhones'>
+                  <h3>{newModelName}</h3>
+                  <h4>{value.Brand}</h4>
+                  <p>{value.Internal_memory}</p>
+                  <p>{value.RAM}</p>
+                </div>
+              </Link>
+              <button onClick={ () => addToCompare(value._id) } className='comparebutton'>Compare</button>
+            </div>
+          )
+        })}
+      </div>
+
+      <div class="container phonesFromAllPhones">
+        {listState.filter((value) => {
+          if (searchState == '') {
+            return value
+          } else if (value.Model.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          } else if (value.Brand.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          } else if (value.Chipset && value.Chipset.toLowerCase().includes(searchState.toLowerCase())) {
+            return value
+          }
+        }).map(value => {
+          let modelName = value.Model
+          let newModelName = modelName.replace('_', '')
+          return(
+            <div key= {value._id} class="card eachPhoneInPhones">
+              <Link to = {`/phones/${value._id}`}>
+                <div class="imgBx">
+                  <img src={value.Image || "/defaultPhone.png"} alt="imagen movil" />
+                </div>
+              </Link>
+                <div class="contentBx">
+                  <Link to = {`/phones/${value._id}`}>
+                    <h3>Name: {newModelName}</h3>
+                    <h4>Brand: {value.Brand}</h4>
+                    <div class="color">
+                      <p>Memory: {value.Internal_memory} - RAM: {value.RAM}</p>
+                    </div>
+                  </Link>
+                  <button onClick={ () => addToCompare(value._id) }>Compare</button>
+                </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

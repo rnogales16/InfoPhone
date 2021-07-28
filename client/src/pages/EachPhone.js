@@ -15,6 +15,13 @@ function EachPhone(props){
     .catch(err => console.log(err))
   }
 
+  function leaveReview(event) {
+    event.preventDefault();
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/${phoneId}/review`, phoneState)
+    .then((response)=>setPhoneState(response.data))
+    .catch(err=>console.log(err))
+  }
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
@@ -66,17 +73,28 @@ function EachPhone(props){
         <p><strong>TwoG:</strong> {phoneState.TwoG}</p>
         <p><strong>Status:</strong> {phoneState.Status}</p>
         <p><strong>Colors:</strong> {phoneState.Colors}</p>
+        <div>
+          <h4>Reviews</h4>
+          <p><strong>Raul</strong></p>
+          <p>I really like this phone</p>
+        </div>
+        {props.user &&
+        <div>
+          <label for='review'><strong>Create a review</strong></label>
+          <br />
+          <textarea name="review" id="review" cols="40" rows="6"></textarea>
+          <br />
+          <button onClick= {leaveReview}>Submit</button>
+        </div>
+        }
         {props.user &&
         <>
-          <Link to = {`/phones/compare/:id/:id/`}>Compare two phones</Link>
-          <br />
           <Link to = {`/phones/${phoneState._id}/edit`}>Edit Phone</Link>
           <br />
           <button onClick= {() => removePhone(phoneState._id)}>Delete Phone</button>
         </>
         }
         <br />
-        <Link to = {`/phones`}>All phones</Link>
       </div>
     </div>
   )
