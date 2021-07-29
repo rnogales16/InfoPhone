@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PhoneCompare from './PhoneCompare';
-import Loading from '../components/Loading';
-
 
 function EachOfTwoPhone(props){
   
@@ -24,7 +22,6 @@ function EachOfTwoPhone(props){
   }, [phoneId1, phoneId2])
 
   return(
-    
     <div>
       <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         {phonesToCompare[0] && <PhoneCompare phone={phonesToCompare[0]}/>} 
@@ -34,7 +31,6 @@ function EachOfTwoPhone(props){
 
       <br/>
       <Link to = {`/phones`}>All phones</Link>
-
     </div>
   )
 }

@@ -25,10 +25,10 @@ function CreateNewPhone() {
   };
   
   return (
-    <div>
-      <h2>Create a new phone</h2>
-      <form onSubmit={handleFormSubmit} class="form-style-4">
-        <div style={{display: 'flex', justifyContent: 'space-around'}}>
+    <div style={{width: "100%"}}>
+      <h2 id="createphone">Create a new phone</h2>
+      <form onSubmit={handleFormSubmit}>
+        <div style={{display: 'flex', justifyContent: 'space-around'}} class="form-style-4">
           <div>
             <label for="Image">
               <span>Image</span>
@@ -403,7 +403,9 @@ function CreateNewPhone() {
             </label>
           </div>
         </div>
-        <span> </span><input type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}/>
+        <div class="sortButtons">
+          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
+        </div>
       </form>
     </div>
   )

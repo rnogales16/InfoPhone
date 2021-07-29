@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiService from '../services/api'; // Use this line insted of simple axios import
 import { Link } from 'react-router-dom';
 
 function EachPhone(props){
@@ -7,31 +7,42 @@ function EachPhone(props){
   const [phoneState, setPhoneState] = useState({})
   const phoneId = props.match.params.id
 
+  const [comment, setComment] = useState('')
+
   function removePhone(phoneId) {
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
+    apiService.delete(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
       props.history.push('/phones')
     })
     .catch(err => console.log(err))
   }
 
-  function leaveReview(event) {
+  function handleChange(event) {
+    const {name, value} = event.target
+    setComment({...comment, [name]: value})
+  }
+
+  function handleFormSubmit (event) {
     event.preventDefault();
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/${phoneId}/review`, phoneState)
-    .then((response)=>setPhoneState(response.data))
+    apiService.post(`${process.env.REACT_APP_SERVER_URL}/${phoneId}/review`, comment)
+    .then((response => {
+      console.log("review response: ", response.data); 
+      setPhoneState(response.data)
+    }))
     .catch(err=>console.log(err))
   }
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
+    apiService.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
+      console.log("run with phne Id: ", res.data)
       const phone = res.data
       phone.Model = phone.Model.replace('_', '')
-      console.log('this is modelName' , phone.Model)
       setPhoneState(phone)
     })
     .catch(err => console.log(err))
   }, [phoneId])
+
 
   return(
     <div>
@@ -75,17 +86,24 @@ function EachPhone(props){
         <p><strong>Colors:</strong> {phoneState.Colors}</p>
         <div>
           <h4>Reviews</h4>
-          <p><strong>Raul</strong></p>
-          <p>I really like this phone</p>
+          {phoneState.reviews && phoneState.reviews.length > 0 && phoneState.reviews.map(value => {
+            return(
+              <div>
+                <h5>{value.user}</h5>
+                <p>{value.comment}</p>
+              </div>
+            )
+          })} 
         </div>
         {props.user &&
-        <div>
-          <label for='review'><strong>Create a review</strong></label>
+        <form onSubmit={handleFormSubmit}>
+          <label for='comment'><strong>Create a review</strong>
+            <br />
+            <textarea onChange={handleChange} name="comment" id="comment" cols="40" rows="6"></textarea>
+          </label>
           <br />
-          <textarea name="review" id="review" cols="40" rows="6"></textarea>
-          <br />
-          <button onClick= {leaveReview}>Submit</button>
-        </div>
+          <button type="submit">Submit</button>
+        </form>
         }
         {props.user &&
         <>

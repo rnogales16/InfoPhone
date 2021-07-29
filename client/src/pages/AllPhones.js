@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import apiService from '../services/api'; // Use this line insted of simple axios import
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import '../cssPages/AllPhones.css'
@@ -15,8 +15,10 @@ function AllPhones(props){
   const [searchState, setSearchState] = useState('')
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/`)
+    apiService
+    .get(`${process.env.REACT_APP_SERVER_URL}/`)
     .then((res => {
+      console.log("AllPhones useEffect")
       const listOfAllPhones = res.data
       setListState(listOfAllPhones)//guardo la lista de moviles en el estado de la linea 8
       setLoading(false)
@@ -62,50 +64,25 @@ function AllPhones(props){
     props.history.push(`/phones/compare/${comparison[0]}/${comparison[1]}`)
   }
 
+
   return(
     <div className= 'everything'>
       <div className= 'searchAndFilters'>
-        <div>
-          <label htmlFor="search">Search phone by name or brand</label>
-          <input type="text" onChange = {event => {setSearchState(event.target.value)}} />
+        <div class="search container">
+          <p class="search title">Search by name or brand</p>
+          <input class="search input" type="text" placeholder="Search" onChange={event=>{setSearchState(event.target.value)}}/>
         </div>
-        <div>
-          <button onClick={() => sortByScreen()} class="container card contentBx">Sort by screen</button>
-          <button onClick={() => sortByYear()}>Sort by year</button>
-          <button onClick={() => sortByMemory()}>Sort by memory</button>
+        <div class="threeButtons">
+          <div class="sortButtons">
+            <button onClick={() => sortByScreen()}>Sort by screen</button>
+          </div>
+          <div class="sortButtons">
+            <button onClick={() => sortByYear()}>Sort by year</button>
+          </div>
+          <div class="sortButtons">
+            <button onClick={() => sortByMemory()}>Sort by memory</button>
+          </div>
         </div>
-      </div>
-      <div className='phonesFromAllPhones'>
-        {listState.filter((value) => {
-          if (searchState == '') {
-            return value
-          } else if (value.Model.toLowerCase().includes(searchState.toLowerCase())) {
-            return value
-          } else if (value.Brand.toLowerCase().includes(searchState.toLowerCase())) {
-            return value
-          } else if (value.Chipset && value.Chipset.toLowerCase().includes(searchState.toLowerCase())) {
-            return value
-          }
-        }).map(value => {
-          let modelName = value.Model
-          let newModelName = modelName.replace('_', '')
-          return(
-            <div key= {value._id}>
-              <Link to = {`/phones/${value._id}`} className=''>
-                <div>
-                  <img src={value.Image || "/defaultPhone.png"} alt="imagen movil" />
-                </div>
-                <div className= 'textOfEachPhoneInPhones'>
-                  <h3>{newModelName}</h3>
-                  <h4>{value.Brand}</h4>
-                  <p>{value.Internal_memory}</p>
-                  <p>{value.RAM}</p>
-                </div>
-              </Link>
-              <button onClick={ () => addToCompare(value._id) } className='comparebutton'>Compare</button>
-            </div>
-          )
-        })}
       </div>
 
       <div class="container phonesFromAllPhones">
@@ -130,14 +107,14 @@ function AllPhones(props){
                 </div>
               </Link>
                 <div class="contentBx">
-                  <Link to = {`/phones/${value._id}`}>
-                    <h3>Name: {newModelName}</h3>
-                    <h4>Brand: {value.Brand}</h4>
+                  <Link style={{textDecoration: 'none'}} to = {`/phones/${value._id}`}>
+                    <h3 style={{color:'#182B49'}}>Name: {newModelName}</h3>
+                    <h4 style={{color:'#182B49'}}>Brand: {value.Brand}</h4>
                     <div class="color">
-                      <p>Memory: {value.Internal_memory} - RAM: {value.RAM}</p>
+                      <p style={{color:'#182B49'}}>Memory: {value.Internal_memory} - RAM: {value.RAM}</p>
                     </div>
                   </Link>
-                  <button onClick={ () => addToCompare(value._id) }>Compare</button>
+                  <button onClick={() => addToCompare(value._id)}>Compare</button>
                 </div>
             </div>
           )
@@ -148,3 +125,41 @@ function AllPhones(props){
 }
 
 export default AllPhones;
+
+
+
+
+{/* 
+  <div className='phonesFromAllPhones'>
+  {listState.filter((value) => {
+    if (searchState == '') {
+      return value
+    } else if (value.Model.toLowerCase().includes(searchState.toLowerCase())) {
+      return value
+    } else if (value.Brand.toLowerCase().includes(searchState.toLowerCase())) {
+      return value
+    } else if (value.Chipset && value.Chipset.toLowerCase().includes(searchState.toLowerCase())) {
+      return value
+    }
+  }).map(value => {
+    let modelName = value.Model
+    let newModelName = modelName.replace('_', '')
+    return(
+      <div key= {value._id}>
+        <Link to = {`/phones/${value._id}`} className=''>
+          <div>
+            <img src={value.Image || "/defaultPhone.png"} alt="imagen movil" />
+          </div>
+          <div className= 'textOfEachPhoneInPhones'>
+            <h3>{newModelName}</h3>
+            <h4>{value.Brand}</h4>
+            <p>{value.Internal_memory}</p>
+            <p>{value.RAM}</p>
+          </div>
+        </Link>
+        <button onClick={ () => addToCompare(value._id) } className='comparebutton'>Compare</button>
+      </div>
+    )
+  })}
+</div> 
+*/}

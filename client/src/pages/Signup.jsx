@@ -46,45 +46,57 @@ function Signup(props) {
 
 	return (
 		<div>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit} className='auth__form'>
-				<label htmlFor='input-username'>Username</label>
-				<input
-					id='input-username'
-					type='text'
-					name='username'
-					placeholder='Text'
-					value={formData.username}
-					onChange={handleChange}
-					required
-				/>
-
-				<label htmlFor='input-username'>Email</label>
-				<input
-					id='input-email'
-					type='text'
-					name='email'
-					placeholder='Text'
-					value={formData.email}
-					onChange={handleChange}
-					required
-				/>
-
-				<label htmlFor='input-password'>Password</label>
-				<input
-					id='input-password'
-					type='password'
-					name='password'
-					placeholder='Password'
-					value={formData.password}
-					onChange={handleChange}
-					required
-					minLength='8'
-				/>
-
-				<button className='button__submit' type='submit'>
-					Submit
-				</button>
+			<form onSubmit={handleSubmit}>
+				<div class="signup">
+					<div class="login-screen">
+						<div class="app-title">
+							<h1>Sign Up</h1>
+						</div>
+						<div class="login-form">
+							<div class="control-group">
+								<input 
+									type="text" 
+									name="username"
+									class="login-field" 
+									value={formData.username}
+									onChange={handleChange}
+									placeholder="username" 
+									id="login-name"
+									required
+								/>
+								<label class="login-field-icon fui-user" htmlFor='input-username'></label>
+							</div>
+							<div class="control-group">
+								<input 
+									type="text" 
+									name="email"
+									class="login-field" 
+									value={formData.email}
+									onChange={handleChange}
+									placeholder="email" 
+									id="login-name"
+									required
+								/>
+								<label class="login-field-icon fui-user" htmlFor='input-username'></label>
+							</div>
+							<div class="control-group">
+								<input 
+									type="password" 
+									name="password"
+									class="login-field" 
+									value={formData.password}
+									placeholder="password" 
+									id="login-pass"
+									onChange={handleChange}
+									required
+									minLength='8'
+								/>
+								<label class="login-field-icon fui-lock" htmlFor='input-password'></label>
+							</div>
+							<button class="btn btn-primary btn-large btn-block" type="submit">sign up</button>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	);

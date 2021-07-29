@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiService from '../services/api'; // Use this line insted of simple axios import
 import React, { useState, useEffect } from 'react'
 import Phone from '../utils/createPhoneObject'
 import '../cssPages/NewPhone.css'
@@ -12,7 +12,7 @@ function EditPhone(props){
   const [formState, setFormState] = useState(initialFormState)
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
+    apiService.get(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`)
     .then(res => {
       const phone = res.data
       setFormState(phone)
@@ -27,9 +27,7 @@ function EditPhone(props){
 
   function handleFormSubmit (event) {
     event.preventDefault();
-    //const { Phone } = formState;
-    console.log(formState)
-    axios.put(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`, formState)
+    apiService.put(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`, formState)
     .then((res => {
       const prefieldForm = res.data
       console.log(res)
@@ -41,7 +39,7 @@ function EditPhone(props){
 
   return (
     <div>
-      <h2>Edit a new phone</h2>
+      <h2>Edit phone</h2>
       <form onSubmit={handleFormSubmit} class="form-style-4">
         <div style={{display: 'flex', justifyContent: 'space-around'}}>
           <div>

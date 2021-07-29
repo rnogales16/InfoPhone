@@ -5,12 +5,14 @@ import "./Footer.css";
 const Footer = () => {
 
   return (
-    <footer>
-			<div>
-				<p>Made by <Link to={'https://github.com/rnogales16'}>Raul Nogales.</Link><br></br>
-				At <Link to={'https://www.ironhack.com/es/barcelona'}> 	Ironhack Barcelona</Link></p>
-			</div>
-		</footer>
+    <body>
+			<footer>
+						<div>
+							<p style={{margin:"0px"}}>Made by <Link to={'https://github.com/rnogales16'}>Raul Nogales.</Link><br></br>
+							At <Link to={'https://www.ironhack.com/es/barcelona'}> 	Ironhack Barcelona</Link></p>
+						</div>
+					</footer>
+		</body>
   )
 }
 

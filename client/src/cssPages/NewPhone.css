@@ -1,9 +1,14 @@
+#createphone{
+	margin-top: 36px;
+	text-align: center;
+	color: #182B49;
+	font-size: 30px;
+}
+
 .form-style-4{
 	width: 100%;
 	font-size: 16px;
-	background: #495C70;
 	padding: 30px 30px 15px 30px;
-	border: 5px solid #53687E;
 }
 .form-style-4 input[type=submit],
 .form-style-4 input[type=button],
@@ -14,7 +19,7 @@
 {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 16px;
-	color: #fff;
+	color: #182B49;
 
 }
 .form-style-4 label {
