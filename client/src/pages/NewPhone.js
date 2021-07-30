@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import Phone from '../utils/createPhoneObject'
 import '../cssPages/NewPhone.css'
 
@@ -404,7 +405,9 @@ function CreateNewPhone() {
           </div>
         </div>
         <div class="sortButtons">
-          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
+          <Link to={`/phones/${initialFormState._id}`}>
+            <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
+          </Link>
         </div>
       </form>
     </div>

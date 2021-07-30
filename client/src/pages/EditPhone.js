@@ -1,5 +1,6 @@
 import apiService from '../services/api'; // Use this line insted of simple axios import
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import Phone from '../utils/createPhoneObject'
 import '../cssPages/NewPhone.css'
 
@@ -39,7 +40,7 @@ function EditPhone(props){
 
   return (
     <div>
-      <h2>Edit phone</h2>
+      <h2 id="createphone">Edit phone</h2>
       <form onSubmit={handleFormSubmit} class="form-style-4">
         <div style={{display: 'flex', justifyContent: 'space-around'}}>
           <div>
@@ -416,7 +417,9 @@ function EditPhone(props){
             </label>
           </div>
         </div>
-        <span> </span><input type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}/>
+        <div class="sortButtons">
+          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}><Link to = {`/phones/${phoneId}`}>submit</Link></button>
+        </div>
       </form>
     </div>
   )

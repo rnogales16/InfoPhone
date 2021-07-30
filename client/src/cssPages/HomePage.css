@@ -1,5 +1,20 @@
+#title {
+	font-size: 45px;
+	margin-left: 60px;
+}
+
+.quality {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.quality h3 {
+	margin: 0 auto;
+}
+
 .homephonesboxes{
-  width: 420px;
+  width: 440px;
   display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -9,9 +24,20 @@
 }
 
 .homephones {
-  width: 200px
+  width: 200px;
+	background: #A7D5E2;
+  border-radius: 20px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	margin: 10px;
 }
 
 .homephones img {
   width: 100px;
+}
+
+.homephones a {
+  text-decoration: none;
+	color: #182B49;
 }

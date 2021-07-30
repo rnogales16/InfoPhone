@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import apiService from '../services/api'; // Use this line insted of simple axios import
 import { Link } from 'react-router-dom';
+import '../cssPages/EachPhone.css'
 
 function EachPhone(props){
 
@@ -45,9 +46,9 @@ function EachPhone(props){
 
 
   return(
-    <div>
-      <div>
-        <img src={phoneState.Image || "/defaultPhone.png"} alt="imagen movil" />
+    <div class="fullpage">
+      <img src={phoneState.Image || "/defaultPhone.png"} alt="imagen movil" />
+      <div class="phonecontent">
         <h2><strong>Model:</strong> {phoneState.Model}</h2>
         <p><strong>Brand:</strong> {phoneState.Brand}</p>
         <p><strong>Announced date:</strong> {phoneState.Announced}</p>
@@ -84,36 +85,39 @@ function EachPhone(props){
         <p><strong>TwoG:</strong> {phoneState.TwoG}</p>
         <p><strong>Status:</strong> {phoneState.Status}</p>
         <p><strong>Colors:</strong> {phoneState.Colors}</p>
-        <div>
-          <h4>Reviews</h4>
-          {phoneState.reviews && phoneState.reviews.length > 0 && phoneState.reviews.map(value => {
-            return(
-              <div>
-                <h5>{value.user}</h5>
-                <p>{value.comment}</p>
-              </div>
-            )
-          })} 
-        </div>
-        {props.user &&
-        <form onSubmit={handleFormSubmit}>
-          <label for='comment'><strong>Create a review</strong>
-            <br />
-            <textarea onChange={handleChange} name="comment" id="comment" cols="40" rows="6"></textarea>
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
-        }
-        {props.user &&
-        <>
-          <Link to = {`/phones/${phoneState._id}/edit`}>Edit Phone</Link>
-          <br />
-          <button onClick= {() => removePhone(phoneState._id)}>Delete Phone</button>
-        </>
-        }
-        <br />
       </div>
+      <div class="reviews">
+        <h4>Reviews</h4>
+        {phoneState.reviews && phoneState.reviews.length > 0 && phoneState.reviews.map(value => {
+          return(
+            <div>
+              <h5>{value.user}</h5>
+              <p>{value.comment}</p>
+            </div>
+          )
+        })} 
+      </div>
+      {props.user &&
+      <form onSubmit={handleFormSubmit}>
+        <label for='comment'><strong>Create a review</strong>
+          <br />
+          <textarea onChange={handleChange} name="comment" id="comment" cols="40" rows="6"></textarea>
+        </label>
+        <br />
+        <div class="sortButtons"><button type="submit">Submit</button></div>
+      </form>
+      }
+      {props.user &&
+      <>
+        <div class="sortButtons">
+          <Link to = {`/phones/${phoneState._id}/edit`}><button>Edit Phone</button></Link>
+        </div>
+        <br />
+        <div class="sortButtons">
+          <Link to = {`/phones`}><button onClick= {() => removePhone(phoneState._id)}>Delete Phone</button></Link>
+        </div>
+      </>
+      }
     </div>
   )
 }

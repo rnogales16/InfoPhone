@@ -1,0 +1,19 @@
+.fullpage {
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  text-align: center;
+}
+
+.fullpage img {
+  width: 150px;
+}
+
+.phonecontent {
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+  margin-left: 200px;
+}
