@@ -31,7 +31,7 @@ function EditPhone(props){
     apiService.put(`${process.env.REACT_APP_SERVER_URL}/${phoneId}`, formState)
     .then((res => {
       const prefieldForm = res.data
-      console.log(res)
+      props.history.push(`/phones/${res.data._id}`)
       setFormState(prefieldForm)
     }))
     .catch(err=>console.log(err))
@@ -418,7 +418,7 @@ function EditPhone(props){
           </div>
         </div>
         <div class="sortButtons">
-          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}><Link to = {`/phones/${phoneId}`}>submit</Link></button>
+          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
         </div>
       </form>
     </div>

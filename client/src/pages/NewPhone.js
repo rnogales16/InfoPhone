@@ -5,9 +5,10 @@ import Phone from '../utils/createPhoneObject'
 import '../cssPages/NewPhone.css'
 
 
-function CreateNewPhone() {
+function CreateNewPhone(props) {
 
   const initialFormState = Phone
+  const phoneId = props.match.params.id
 
   const [formState, setFormState] = useState(initialFormState)
   
@@ -21,7 +22,10 @@ function CreateNewPhone() {
     //const { Phone } = formState;
     console.log(formState)
     axios.post(`${process.env.REACT_APP_SERVER_URL}/`, formState)
-    .then((response)=>setFormState(initialFormState))
+    .then((response)=>{
+      setFormState(initialFormState)
+      props.history.push(`/phones/${response.data._id}`)
+    })
     .catch(err=>console.log(err))
   };
   
@@ -405,9 +409,7 @@ function CreateNewPhone() {
           </div>
         </div>
         <div class="sortButtons">
-          <Link to={`/phones/${initialFormState._id}`}>
-            <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
-          </Link>
+          <button type="submit" value="submit" style={{display: 'block', marginLeft:'auto', marginRight:'auto'}}>submit</button>
         </div>
       </form>
     </div>
